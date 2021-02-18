@@ -5,57 +5,35 @@ global CMAIN
 CMAIN:
     mov rbp, rsp; for correct debugging
     
-    ; 쉬프트 (shift) 연산, 논리 (logical) 연산
-    mov eax, 0x12345678
-    PRINT_HEX 4, eax
+    ; CMP dst, src (dst 기준)
+    ; 비교를 한 결과물은 Flag Register 저장
+    
+    ; JMP [label] 시리즈
+    ; JMP : 무조건 JUMP
+    ; JE : JumpEquals 같으면 jump
+    ; JNE : JumpNotEquals 다르면 jump
+    ; JG : JumpGreater 크면 jump
+    ; JGE : JumpGreaterEquals 크거나 같으면 jump
+    ; JL
+    ; JLE
+    
+    ; 두 숫자가 같으면 1, 아니면 0을 출력
+    mov rax, 10
+    mov rbx, 10
+    
+    CMP rax, rbx
+    
+    je LABEL_EQUAL
+    
+    ; je에 의해 점프를 안히면? 같지 않다는 의미
+    mov rcx, 0
+    jmp LABEL_EQUAL_END
+    
+LABEL_EQUAL:
+    mov rcx, 1
+LABEL_EQUAL_END:    
+    PRINT_HEX 1, rcx
     NEWLINE
-    
-    shl eax, 8
-    PRINT_HEX 4, eax
-    NEWLINE
-    
-    shr eax, 8
-    PRINT_HEX 4, eax
-    NEWLINE
-    
-    ; 곱셈 / 나눗셈
-    ; 게임서버에서 ObjectId를 만들어줄 때
-    
-    ; not, and, or, xor
-    
-    mov al, 0b10010101
-    mov bl, 0b01111100
-    
-    and al, bl ; and
-    PRINT_HEX 1, al
-    NEWLINE
-    
-    not al
-    PRINT_HEX 1, al
-    NEWLINE
-    
-    ; 응용 사례 : bitFlag   
-    
-    
-    mov al, 0b10010101
-    mov bl, 0b01111100
-    
-    NEWLINE
-    PRINT_HEX 1, al
-    NEWLINE
-    
-    XOR al, bl
-    PRINT_HEX 1, al
-    NEWLINE
-    XOR al, bl
-    PRINT_HEX 1, al
-    NEWLINE
-    ; 동일한 값으로 xor 두번하면 자기 자신으로 돌아오는 특성
-    ; 암호학에서 유용하다! (value xor key)
-    
-    ; mov al, 0
-    xor al, al
-    PRINT_HEX 1, al
     
     xor rax, rax
     ret
