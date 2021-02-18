@@ -3,52 +3,27 @@
 section .text
 global CMAIN
 CMAIN:
-    mov rbp, rsp; for correct debugging
+    mov rbp, rsp; for correct debugging    
     
-    ; 반복문 (while, for)
+    ; 연습문제: a배열의 모든 데이터 출력해보기
+    xor rax, rax
     
-    ; ex) Hello world를 10번 출력해야하면?
-    
-    ; mov ecx, 10 
-    
-    
-;LABEL_LOOP:
-    ;PRINT_STRING msg
-    ;NEWLINE
-    ;dec ecx
-    ;cmp ecx, 0    
-    ;jne LABEL_LOOP
-    
-    
-    ; 연습 문제) 1에서 100까지 합을 구할려면?
-    xor ebx, ebx
-    xor ecx, ecx
-    
-LABEL_LOOP:
-    add ebx, ecx
-    add ecx, 1
-    
-    cmp ecx, 101
-    
-    jne LABEL_LOOP
-    
-    PRINT_DEC 1, ebx
+LABEL_COUNT:
+    PRINT_DEC 1, [a + rax]
     NEWLINE
+    inc rax
+    cmp rax, 5
+    jne LABEL_COUNT
     
-    ; loop [라벨]
-    ; - ecx에 반복 횟수
-    ; - loop 할때마다 ecx 1 감소 0이면 빠져나감. 아니면 라벨로 이동
+    xor rcx, rcx
     
-    mov ecx, 100
-    xor ebx, ebx
-LABEL_LOOP_SUM:
-    add ebx, ecx
-    loop LABEL_LOOP_SUM
-    
-    PRINT_DEC 1, ebx
+LABEL_COUNT_B:
+    PRINT_DEC 2, [b + rcx * 2]
     NEWLINE
-    
-    
+    inc rcx
+    cmp rcx, 5
+    jne LABEL_COUNT_B
+
     
     
     xor rax, rax
@@ -61,6 +36,8 @@ LABEL_LOOP_SUM:
     
 section .data
     msg db 'Hello World', 0x00
+    a db 0x01, 0x02, 0x03, 0x04, 0x05
+    b times 5 dw 1
     
     ; 초기화 되지 않은 데이터
     ; [변수이름] [크기] [개수]
