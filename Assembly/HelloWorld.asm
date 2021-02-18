@@ -17,23 +17,29 @@ CMAIN:
     ; JL
     ; JLE
     
-    ; 두 숫자가 같으면 1, 아니면 0을 출력
-    mov rax, 10
-    mov rbx, 10
     
-    CMP rax, rbx
+    mov ax, 100
+    mov bl, 2    
+    div bl    
+    PRINT_DEC 1, ax    
+    CMP ah, 0
     
-    je LABEL_EQUAL
+    JE LABEL_DUO
     
-    ; je에 의해 점프를 안히면? 같지 않다는 의미
     mov rcx, 0
-    jmp LABEL_EQUAL_END
+    JMP LABEL_PASS
     
-LABEL_EQUAL:
+    
+LABEL_DUO:
     mov rcx, 1
-LABEL_EQUAL_END:    
-    PRINT_HEX 1, rcx
+LABEL_PASS:
     NEWLINE
+    PRINT_DEC 1, rcx
+    
+    
+    
+    
+    
     
     xor rax, rax
     ret
